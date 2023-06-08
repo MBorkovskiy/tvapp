@@ -1,0 +1,39 @@
+.header {
+  background-color: #21242d;
+  width: 100%;
+  height: 100px;
+  .header_container {
+    width: 1600px;
+    margin: auto;
+    .header_logo {
+      width: 250px;
+      .logo_dot {
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        background-color: #ff3d71;
+        margin-left: 5px;
+        margin-bottom: 10px;
+      }
+    }
+    .header_link_active {
+      font-size: 20px;
+      text-decoration: none;
+      padding-block: 15px;
+      transition: all 0.3s ease-in-out;
+      color: #ff3d71;
+      border-bottom: 1px solid #ff3d71;
+    }
+    .header_link {
+      font-size: 20px;
+      text-decoration: none;
+      padding-block: 15px;
+      transition: all 0.3s ease-in-out;
+      border-bottom: 1px solid transparent;
+      &:hover {
+        color: #ff3d71;
+        border-bottom: 1px solid #ff3d71;
+      }
+    }
+  }
+}

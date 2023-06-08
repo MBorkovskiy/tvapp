@@ -1,0 +1,19 @@
+.card {
+  width: 93px;
+  border-radius: 8px;
+  overflow: hidden;
+  .img {
+    width: 100%;
+    border-radius: 8px;
+    height: 140px;
+  }
+
+  .title {
+    font-size: 14px;
+    margin: 0;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

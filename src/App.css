@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+#root {
+  background-color: #21242d;
+  color: white;
+}
+.App {
+  margin: auto;
+  width: 1600px;
+  height: 980px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.slick-track {
+  display: flex;
+}
+.slick-slider {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.slick-list {
+  margin: 0 -10px !important;
+}
+
+.slick-slide > div {
+  padding: 0 10px !important;
+}
+
+.css-17jj3nl-MuiButtonBase-root-MuiButton-root {
+  color: white !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1a1b1c;
+  border-radius: 5px;
+  border: solid 2px #282c34;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #1a1b1c;
+  border-radius: 5px;
+  border: solid 2px #1a1b1c;
+}

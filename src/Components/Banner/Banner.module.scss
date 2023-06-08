@@ -1,0 +1,50 @@
+.banner {
+  height: 100px;
+  height: 310px;
+  display: flex;
+}
+
+.img {
+  height: 150px;
+  border-radius: 8px;
+}
+
+.info {
+  width: 100%;
+}
+
+.left_box {
+  width: 600px;
+  display: flex;
+  margin-left: 30px;
+  margin-top: 30px;
+  gap: 15px;
+  border-radius: 8px;
+}
+
+.description {
+  margin-top: 5px;
+  margin-left: 30px;
+  width: 600px;
+}
+.buttons {
+  margin-top: 22px;
+  height: 40px;
+  display: flex;
+  gap: 15px;
+  width: 300px;
+}
+
+.icon {
+  height: 40px;
+  width: 40px;
+}
+
+.year_derectors_txt {
+  opacity: 70%;
+  margin-block: 5px;
+}
+
+.genre {
+  opacity: 40%;
+}

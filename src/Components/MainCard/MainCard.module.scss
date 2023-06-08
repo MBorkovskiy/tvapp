@@ -1,0 +1,42 @@
+.main_card {
+  background-color: #21242d;
+  width: 225px;
+  height: 300px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  &:hover {
+    .cover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+  .img {
+    width: 100%;
+    height: 100%;
+  }
+  .cover {
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    .icon {
+      width: 32px;
+      height: 32px;
+    }
+    .description {
+      margin: 0;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}
+.css-1900y6x-MuiButtonBase-root-MuiIconButton-root {
+  border-radius: 8px !important;
+  padding: 0px !important;
+}
