@@ -17,7 +17,7 @@ import { Container } from "../../Components/Container/Container";
 import { PaginationComponent } from "../../Components/PaginationComponent/PaginationComponent";
 import { Loader } from "../../Components/Loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 const Genres = () => {
   const genre = useAppSelector((state) => state.genre.genre);

@@ -1,6 +1,5 @@
 import styles from "./Categories.module.scss";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MainCard } from "../../Components/MainCard/MainCard";
 import { getMostPopularSeries } from "../../store/mostPopularSeriesSlice";
@@ -11,42 +10,41 @@ import { Stack, Typography } from "@mui/material";
 import { FilterInput } from "../../Components/FilterInput/FilterInput";
 import { yearDirectionList, years } from "../../constants/years";
 import { Loader } from "../../Components/Loader/Loader";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 const Categories = () => {
   const params = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
   const [alignment, setAlignment] = useState("Movies");
   const [startYear, setStartYear] = useState("2000");
   const [endYear, setEndYear] = useState("2023");
   const [yearDirection, setYearDirection] = useState("High to Low");
-  const mostPopularSeries = useSelector(
-    (state) => state.mostPopularSeries.mostPopularSeries
+  const { mostPopularSeries, isLoadingMostPopularSeries } = useAppSelector(
+    (state) => state.mostPopularSeries
   );
-  const mostPopularMovies = useSelector(
-    (state) => state.mostPopularMovies.mostPopularMovies
-  );
-  const isLoadingMostPopularSeries = useSelector(
-    (state) => state.mostPopularSeries.isLoading
-  );
-  const isLoadingMostPopularMovies = useSelector(
-    (state) => state.mostPopularMovies.isLoading
+  const { mostPopularMovies, isLoadingMostPopularMovies } = useAppSelector(
+    (state) => state.mostPopularMovies
   );
 
-  const handlePage = (event, value) => {
+  const handlePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const handleToggle = (event, newAlignment) => {
+  const handleToggle = (
+    event: React.ChangeEvent<unknown>,
+    newAlignment: string
+  ) => {
     setAlignment(newAlignment);
     setPage(1);
   };
-  const handleStartYear = (event) => {
+  const handleStartYear = (event: SelectChangeEvent) => {
     setStartYear(event.target.value);
   };
-  const handleEndYear = (event) => {
+  const handleEndYear = (event: SelectChangeEvent) => {
     setEndYear(event.target.value);
   };
-  const handleYearDirection = (event) => {
+  const handleYearDirection = (event: SelectChangeEvent) => {
     setYearDirection(event.target.value);
   };
   useEffect(() => {
