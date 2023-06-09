@@ -1,10 +1,10 @@
 import styles from "./Header.module.scss";
 import { Link, useLocation } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
+import { FC } from "react";
 
-export const Header = () => {
+export const Header: FC = () => {
   const location = useLocation();
-
   return (
     <Stack direction="row" className={styles.header}>
       <Stack

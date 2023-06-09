@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import { getGenre } from "../../store/genreSlice";
 import { useParams } from "react-router-dom";
 import { MainCard } from "../../Components/MainCard/MainCard";
@@ -16,12 +16,14 @@ import { FilterInput } from "../../Components/FilterInput/FilterInput";
 import { Container } from "../../Components/Container/Container";
 import { PaginationComponent } from "../../Components/PaginationComponent/PaginationComponent";
 import { Loader } from "../../Components/Loader/Loader";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const Genres = () => {
-  const genre = useSelector((state) => state.genre.genre);
-  const isLoadingGenre = useSelector((state) => state.genre.isLoading);
+  const genre = useAppSelector((state) => state.genre.genre);
+  const isLoadingGenre = useAppSelector((state) => state.genre.isLoading);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const params = useParams();
   const [page, setPage] = useState(1);
   const [alignment, setAlignment] = useState("Movies");
@@ -29,20 +31,23 @@ const Genres = () => {
   const [endYear, setEndYear] = useState("2023");
   const [yearDirection, setYearDirection] = useState("High to Low");
 
-  const handlePage = (event, value) => {
+  const handlePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const handleToggle = (event, newAlignment) => {
+  const handleToggle = (
+    event: React.ChangeEvent<unknown>,
+    newAlignment: string
+  ) => {
     setAlignment(newAlignment);
     setPage(1);
   };
-  const handleStartYear = (event) => {
+  const handleStartYear = (event: SelectChangeEvent) => {
     setStartYear(event.target.value);
   };
-  const handleEndYear = (event) => {
+  const handleEndYear = (event: SelectChangeEvent) => {
     setEndYear(event.target.value);
   };
-  const handleYearDirection = (event) => {
+  const handleYearDirection = (event: SelectChangeEvent) => {
     setYearDirection(event.target.value);
   };
   useEffect(() => {

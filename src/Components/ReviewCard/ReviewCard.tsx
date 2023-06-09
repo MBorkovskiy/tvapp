@@ -1,7 +1,13 @@
+import { FC } from "react";
+import { ReviewsProps } from "../../types/types";
 import styles from "./ReviewCard.module.scss";
 import { Rating, Stack, Typography } from "@mui/material";
 
-export const ReviewCard = ({ el }) => {
+interface ReviewCardProps {
+  el: ReviewsProps;
+}
+
+export const ReviewCard: FC<ReviewCardProps> = ({ el }) => {
   return (
     <>
       <Stack direction={"row"} justifyContent={"space-between"}>

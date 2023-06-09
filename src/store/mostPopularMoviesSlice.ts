@@ -1,8 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_HOST, API_KEY, BASE_URL } from "../constants/url";
+import { MovieProps, Props } from "../types/types";
 
-export const getMostPopularMovies = createAsyncThunk(
+interface InitialStateProps {
+  mostPopularMovies: MovieProps[];
+  isLoadingMostPopularMovies: boolean;
+}
+
+export const getMostPopularMovies = createAsyncThunk<MovieProps[], Props>(
   "mostPopularMovies/getMostPopularMovies",
   async ({ mostPop, pageNumber, start, end, sortYear }) => {
     const responce = await axios.get(`${BASE_URL}/titles`, {
@@ -25,21 +31,22 @@ export const getMostPopularMovies = createAsyncThunk(
   }
 );
 
-const initialState = {
+const initialState: InitialStateProps = {
   mostPopularMovies: [],
-  isLoading: false,
+  isLoadingMostPopularMovies: false,
 };
 
 const mostPopularMoviesSlice = createSlice({
   name: "mostPopularMovies",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getMostPopularMovies.pending, (state, action) => {
-      state.isLoading = true;
+      state.isLoadingMostPopularMovies = true;
     });
     builder.addCase(getMostPopularMovies.fulfilled, (state, action) => {
       state.mostPopularMovies = action.payload;
-      state.isLoading = false;
+      state.isLoadingMostPopularMovies = false;
     });
   },
 });

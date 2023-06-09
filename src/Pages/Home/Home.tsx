@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import { Box, Stack, Typography } from "@mui/material";
 import { MainCard } from "../../Components/MainCard/MainCard";
 import { Banner } from "../../Components/Banner/Banner";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HorizontalCard } from "../../Components/HorizontalCard/HorizontalCard";
 import { getMostPopularSeries } from "../../store/mostPopularSeriesSlice";
@@ -16,36 +16,27 @@ import {
   moviesSettings,
   seriesSettings,
 } from "../../constants/sliderSettings/sliderSettings";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
-const Home = () => {
-  const dispatch = useDispatch();
+const Home: FC = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const mostPopularMovies = useSelector(
-    (state) => state.mostPopularMovies.mostPopularMovies
+  const { mostPopularMovies, isLoadingMostPopularMovies } = useAppSelector(
+    (state) => state.mostPopularMovies
   );
-  const mostPopularSeries = useSelector(
-    (state) => state.mostPopularSeries.mostPopularSeries
+  const { mostPopularSeries, isLoadingMostPopularSeries } = useAppSelector(
+    (state) => state.mostPopularSeries
   );
-  const boxOfficeAllTime = useSelector(
-    (state) => state.boxOfficeAllTime.boxOfficeAllTime
-  );
-
-  const isLoadingMostPopularMovies = useSelector(
-    (state) => state.mostPopularMovies.isLoading
-  );
-  const isLoadingMostPopularSeries = useSelector(
-    (state) => state.mostPopularSeries.isLoading
-  );
-  const isLoadingBoxOfficeAllTime = useSelector(
-    (state) => state.boxOfficeAllTime.isLoading
+  const { boxOfficeAllTime, isLoadingBoxOfficeAllTime } = useAppSelector(
+    (state) => state.boxOfficeAllTime
   );
 
   useEffect(() => {
     dispatch(
       getMostPopularMovies({
         mostPop: "most_pop_movies",
-        pageNumber: "1",
+        pageNumber: 1,
         start: "2000",
         end: "2023",
         sortYear: "year.decr",
@@ -54,7 +45,7 @@ const Home = () => {
     dispatch(
       getMostPopularSeries({
         mostPop: "most_pop_series",
-        pageNumber: "1",
+        pageNumber: 1,
         start: "2000",
         end: "2023",
         sortYear: "year.decr",

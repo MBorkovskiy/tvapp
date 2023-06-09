@@ -1,13 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_HOST, API_KEY, BASE_URL } from "../constants/url";
+import { MovieProps } from "../types/types";
 
-export const getTopMovies = createAsyncThunk(
-  "topMovies/getTopMovies",
+interface InitialStateProps {
+  topTvShows: MovieProps[];
+  isLoading: boolean;
+}
+
+export const getTopTvShows = createAsyncThunk<MovieProps[]>(
+  "topTvShows/getTopTvShows",
   async () => {
     const responce = await axios.get(`${BASE_URL}/titles`, {
       params: {
-        list: "top_rated_250",
+        list: "top_rated_series_250",
         limit: "6",
         sort: "year.decr",
         info: "base_info",
@@ -21,23 +27,24 @@ export const getTopMovies = createAsyncThunk(
   }
 );
 
-const initialState = {
-  topMovies: [],
+const initialState: InitialStateProps = {
+  topTvShows: [],
   isLoading: false,
 };
 
-const topMoviesSlice = createSlice({
-  name: "topMovies",
+const topTvShowsSlice = createSlice({
+  name: "topTvShows",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getTopMovies.pending, (state, action) => {
+    builder.addCase(getTopTvShows.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(getTopMovies.fulfilled, (state, action) => {
-      state.topMovies = action.payload;
+    builder.addCase(getTopTvShows.fulfilled, (state, action) => {
+      state.topTvShows = action.payload;
       state.isLoading = false;
     });
   },
 });
 
-export default topMoviesSlice.reducer;
+export default topTvShowsSlice.reducer;

@@ -1,18 +1,17 @@
 import styles from "./RightBar.module.scss";
-import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { getTopMovies } from "../../store/topMoviesSlice";
 import { getTopTvShows } from "../../store/topTvShowsSlice";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { RightBarCard } from "../RightBarCard/RightBarCard";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
-export const RightBar = () => {
-  const topMovies = useSelector((state) => state.topMovies.topMovies);
-  const topTvShows = useSelector((state) => state.topTvShows.topTvShows);
+export const RightBar: FC = () => {
+  const topMovies = useAppSelector((state) => state.topMovies.topMovies);
+  const topTvShows = useAppSelector((state) => state.topTvShows.topTvShows);
   const location = useLocation();
-
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const goToMovies = () => {
     navigate("/category/movies");

@@ -3,8 +3,7 @@ import Slider from "react-slick";
 import youtube from "../../assets/youtube.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "../../Components/Container/Container";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useEffect } from "react";
 import { getItem } from "../../store/itemSlice";
 import {
   Box,
@@ -26,15 +25,17 @@ import {
 } from "../../constants/sliderSettings/sliderSettings";
 import { ReviewCard } from "../../Components/ReviewCard/ReviewCard";
 import { CastCard } from "../../Components/CastCard/CastCard";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { ParamsIdProps } from "../../types/types";
 
-const Item = () => {
-  const params = useParams();
-  const dispatch = useDispatch();
+const Item: FC = () => {
+  const params = useParams<keyof ParamsIdProps>() as ParamsIdProps;
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const item = useSelector((state) => state.item.item);
-  const cast = useSelector((state) => state.cast.cast);
-  const other = useSelector((state) => state.other.other);
-  const wishList = useSelector((state) => state.wishlist.wishlist);
+  const item = useAppSelector((state) => state.item.item);
+  const cast = useAppSelector((state) => state.cast.cast);
+  const other = useAppSelector((state) => state.other.other);
+  const wishList = useAppSelector((state) => state.wishlist.wishlist);
   const [isModal, setIsModal] = useState(false);
   const closeModal = () => {
     setIsModal(false);
@@ -53,16 +54,16 @@ const Item = () => {
     dispatch(deleteItemFromWishList(item));
   };
 
-  const toGenre = (el) => {
+  const toGenre = (el: string) => {
     navigate(`/genre/${el}`);
   };
 
   useEffect(() => {
-    dispatch(getItem(params.id));
-    dispatch(getCast(params.id));
-    dispatch(getOther(params.id));
+    dispatch(getItem({ id: params.id }));
+    dispatch(getCast({ id: params.id }));
+    dispatch(getOther({ id: params.id }));
   }, [params.id]);
-  console.log(item);
+  console.log(other);
   return (
     <Container>
       <Stack
@@ -115,6 +116,7 @@ const Item = () => {
                 >
                   Release Date
                 </Typography>
+
                 <Typography className={styles.txt} variant="body2">
                   {item?.releaseDate?.day}.{item?.releaseDate?.month}.
                   {item?.releaseDate?.year}
@@ -128,22 +130,26 @@ const Item = () => {
                 >
                   Runtime
                 </Typography>
-                <Typography className={styles.txt} variant="body2">
-                  {(item?.runtime?.seconds / 3600).toFixed(2)} hours
-                </Typography>
+                {item?.runtime?.seconds && (
+                  <Typography className={styles.txt} variant="body2">
+                    {(item.runtime.seconds / 3600).toFixed(2)} hours
+                  </Typography>
+                )}
               </Stack>
             </Box>
-            <Stack>
-              <Rating
-                value={item?.ratingsSummary?.aggregateRating / 2}
-                readOnly
-                size="small"
-                precision={0.5}
-              />
-              <Typography variant="body2" className={styles.txt}>
-                ({item?.ratingsSummary?.voteCount} votes)
-              </Typography>
-            </Stack>
+            {item?.ratingsSummary?.aggregateRating && (
+              <Stack>
+                <Rating
+                  value={item.ratingsSummary.aggregateRating / 2}
+                  readOnly
+                  size="small"
+                  precision={0.5}
+                />
+                <Typography variant="body2" className={styles.txt}>
+                  ({item?.ratingsSummary?.voteCount} votes)
+                </Typography>
+              </Stack>
+            )}
           </Stack>
           <Typography
             variant="body2"
@@ -169,29 +175,23 @@ const Item = () => {
         </Stack>
       </Stack>
       <Box position={"relative"} mt={"30px"}>
-        <Typography
-          fontWeight={700}
-          textTransform="uppercase"
-          textAlign={"center"}
-          mb={"30px"}
-        >
-          reviews
-        </Typography>
+        {other?.reviews && (
+          <Typography
+            fontWeight={700}
+            textTransform="uppercase"
+            textAlign={"center"}
+            mb={"30px"}
+          >
+            {other?.reviews?.length > 0 ? " reviews" : "there is no reviews "}
+          </Typography>
+        )}
         <Slider {...reviewsSettings}>
           {other?.reviews?.map((el) => (
             <ReviewCard el={el} key={el.content} />
           ))}
         </Slider>
       </Box>
-      {isModal && (
-        <TraillerModal
-          other={other}
-          isModal={isModal}
-          setIsModal={setIsModal}
-          closeModal={closeModal}
-          openModal={openModal}
-        />
-      )}
+      {isModal && <TraillerModal other={other} closeModal={closeModal} />}
     </Container>
   );
 };

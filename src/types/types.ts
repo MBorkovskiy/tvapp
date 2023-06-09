@@ -24,11 +24,39 @@ interface PrimaryImagePropsCast {
 //movie
 
 export interface MovieProps {
+  id?: string;
+  primaryImage?: PrimaryImagePropsMovie;
+  ratingsSummary?: RatingsSummaryProps;
+  titleText?: TitleTextProps;
+  plot?: PlotProps;
+  originalTitleText?: TitleTextProps;
+  releaseYear?: YearProps;
+  runtime?: SecondsProps;
+  genres?: GenresProps;
+  releaseDate?: ReleaseDateProps;
+}
+
+interface ReleaseDateProps {
+  day: number;
+  month: number;
+  year: number;
+}
+
+interface GenresProps {
+  genres: GenreProps[];
+}
+
+interface GenreProps {
   id: string;
-  primaryImage: PrimaryImagePropsMovie;
-  ratingsSummary: RatingsSummaryProps;
-  titleText: TitleTextProps;
-  plot: PlotProps;
+  text: string;
+}
+
+interface SecondsProps {
+  seconds: number;
+}
+
+interface YearProps {
+  year: string;
 }
 
 interface PrimaryImagePropsMovie {
@@ -37,6 +65,7 @@ interface PrimaryImagePropsMovie {
 
 interface RatingsSummaryProps {
   aggregateRating: number;
+  voteCount: number;
 }
 
 interface TitleTextProps {
@@ -51,6 +80,34 @@ interface PlotTextProps {
   plainText: string;
 }
 
+// params.id
+
 export interface ParamsIdProps {
   id: string;
+}
+
+// other
+
+export interface OtherProps {
+  reviews?: ReviewsProps[];
+  trailer?: string;
+}
+
+// reviews
+export interface ReviewsProps {
+  author: string;
+  content: string;
+  provider_id: number;
+  rating: number;
+  updated_at: string;
+}
+
+// props
+export interface Props {
+  mostPop: string;
+  pageNumber: number;
+  start: string;
+  end: string;
+  sortYear: string;
+  setGenre?: string;
 }

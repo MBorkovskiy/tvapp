@@ -10,14 +10,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { getGenresList } from "../../store/genresListSlice";
 import { LeftBarCard } from "../LeftBarCard/LeftBarCard";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
-export const LeftBar = () => {
-  const dispatch = useDispatch();
-  const genresList = useSelector((state) => state.genresList.genresList);
+export const LeftBar: FC = () => {
+  const dispatch = useAppDispatch();
+  const genresList = useAppSelector((state) => state.genresList.genresList);
   const location = useLocation();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -30,6 +30,7 @@ export const LeftBar = () => {
   useEffect(() => {
     dispatch(getGenresList());
   }, []);
+
   return (
     <Stack className={styles.left_bar} spacing={2}>
       <Box>

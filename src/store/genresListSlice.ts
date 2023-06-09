@@ -2,7 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_HOST, API_KEY, BASE_URL } from "../constants/url";
 
-export const getGenresList = createAsyncThunk(
+interface InitialStateProps {
+  genresList: string[];
+  isLoading: boolean;
+}
+
+export const getGenresList = createAsyncThunk<string[]>(
   "genresList/getGenresList",
   async () => {
     const responce = await axios.get(`${BASE_URL}/titles/utils/genres`, {
@@ -15,7 +20,7 @@ export const getGenresList = createAsyncThunk(
   }
 );
 
-const initialState = {
+const initialState: InitialStateProps = {
   genresList: [],
   isLoading: false,
 };
@@ -23,6 +28,7 @@ const initialState = {
 const genresListSlice = createSlice({
   name: "genresList",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getGenresList.pending, (state, action) => {
       state.isLoading = true;

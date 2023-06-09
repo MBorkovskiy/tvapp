@@ -1,7 +1,17 @@
 import { Box, Stack } from "@mui/material";
 import styles from "./TraillerModal.module.scss";
+import { FC } from "react";
+import { OtherProps } from "../../types/types";
 
-export const TraillerModal = ({ other, closeModal }) => {
+interface TraillerModalProps {
+  other: OtherProps;
+  closeModal: () => void;
+}
+
+export const TraillerModal: FC<TraillerModalProps> = ({
+  other,
+  closeModal,
+}) => {
   return (
     <Stack
       className={styles.modal}
@@ -17,9 +27,9 @@ export const TraillerModal = ({ other, closeModal }) => {
           other?.trailer?.length
         )}`}
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
     </Stack>
   );

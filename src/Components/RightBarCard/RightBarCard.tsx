@@ -1,8 +1,14 @@
 import styles from "./RightBarCard.module.scss";
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { MovieProps } from "../../types/types";
+import { FC } from "react";
 
-export const RightBarCard = ({ el }) => {
+interface RightBarCardProps {
+  el: MovieProps;
+}
+
+export const RightBarCard: FC<RightBarCardProps> = ({ el }) => {
   return (
     <Link to={`/item/${el.id}`}>
       <Box className={styles.card}>

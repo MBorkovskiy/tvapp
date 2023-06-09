@@ -33,7 +33,9 @@ export const MainCard: FC<MainCardProps> = ({ el }) => {
         className={styles.main_card}
         onClick={() => toItem(el)}
       >
-        <img src={el.primaryImage.url} className={styles.img} alt="" />
+        {el.primaryImage && (
+          <img src={el.primaryImage.url} className={styles.img} alt="" />
+        )}
 
         <Stack className={styles.cover} justifyContent="space-between">
           <Stack

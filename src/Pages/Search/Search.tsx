@@ -2,14 +2,14 @@ import { useParams } from "react-router-dom";
 import { Container } from "../../Components/Container/Container";
 import { Stack, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { getSearch } from "../../store/searchSlice";
 import { MainCard } from "../../Components/MainCard/MainCard";
 import { Loader } from "../../Components/Loader/Loader";
 import { ParamsIdProps } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
-const Search = () => {
+const Search: FC = () => {
   const { id } = useParams<keyof ParamsIdProps>() as ParamsIdProps;
   const dispatch = useAppDispatch();
   const { search, isLoading } = useAppSelector((state) => state.search);

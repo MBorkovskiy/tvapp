@@ -1,8 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_HOST, API_KEY, BASE_URL } from "../constants/url";
+import { MovieProps } from "../types/types";
+import { Props } from "../types/types";
 
-export const getGenre = createAsyncThunk(
+interface InitialStateProps {
+  genre: MovieProps[];
+  isLoading: boolean;
+}
+
+export const getGenre = createAsyncThunk<MovieProps[], Props>(
   "genre/getGenre",
   async ({ setGenre, mostPop, pageNumber, start, end, sortYear }) => {
     const responce = await axios.get(`${BASE_URL}/titles`, {
@@ -25,7 +32,7 @@ export const getGenre = createAsyncThunk(
   }
 );
 
-const initialState = {
+const initialState: InitialStateProps = {
   genre: [],
   isLoading: false,
 };
@@ -33,6 +40,7 @@ const initialState = {
 const genreSlice = createSlice({
   name: "genre",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getGenre.pending, (state, action) => {
       state.isLoading = true;
